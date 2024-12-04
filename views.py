@@ -111,8 +111,8 @@ def details(request, address):
 			r['hostname'] = hostname
 
 			scantitle = request.session['scanfile'].replace('.xml','').replace('_',' ')
-			if re.search('^webmapsched\_[0-9\.]+', request.session['scanfile']):
-				m = re.search('^webmapsched\_[0-9\.]+\_(.+)', request.session['scanfile'])
+			if re.search('^heatmapsched\_[0-9\.]+', request.session['scanfile']):
+				m = re.search('^heatmapsched\_[0-9\.]+\_(.+)', request.session['scanfile'])
 				scantitle = m.group(1).replace('.xml','').replace('_',' ')
 			r['scanfile'] = scantitle
 
@@ -334,7 +334,7 @@ def index(request, filterservice="", filterportid=""):
 		r['auth'] = True
 
 	gitcmd = os.popen('cd /opt/nmapdashboard/nmapreport && git rev-parse --abbrev-ref HEAD')
-	r['webmapver'] = 'WebMap '+gitcmd.read()+'<br>This project is currently a beta, please <b>DO NOT</b> expose WebMap to internet.<br>This version is <b>NOT</b> production ready.'
+	r['heatmapver'] = 'HeatMap '+gitcmd.read()+'<br>This project is currently a beta, please <b>DO NOT</b> expose HeatMap to internet.<br>This version is <b>NOT</b> production ready.'
 
 	if 'scanfile' in request.session:
 		oo = xmltodict.parse(open('/opt/xml/'+request.session['scanfile'], 'r').read())
@@ -378,8 +378,8 @@ def index(request, filterservice="", filterportid=""):
 				viewhref = '#!'
 
 			filename = i
-			if re.search('^webmapsched\_[0-9\.]+',i):
-				m = re.search('^webmapsched\_([0-9\.]+)\_(.+)',i)
+			if re.search('^heatmapsched\_[0-9\.]+',i):
+				m = re.search('^heatmapsched\_([0-9\.]+)\_(.+)',i)
 				filename = '<i class="fas fa-calendar-alt grey-text"></i> '+html.escape(m.group(2))
 
 			portstats = nmap_ports_stats(i)

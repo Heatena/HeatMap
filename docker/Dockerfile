@@ -1,18 +1,18 @@
-# WebMap
+# HeatMap
 # -
-# https://github.com/SabyasachiRana/WebMap
-# Author: SabyasachiRana
+# https://github.com/Heatena/HeatMap
+# Author: Heatena
 # -
 # Usage:
 #   $ cd /opt
-#   $ git clone https://github.com/SabyasachiRana/WebMap.git
-#   $ cd WebMap/docker
-#   $ docker build -t webmap:latest .
-#   $ docker run -d -v /opt/WebMap/docker/xml:/opt/xml -p 8000:8000 webmap:latest
+#   $ git clone https://github.com/Heatena/HeatMap.git
+#   $ cd HeatMap/docker
+#   $ docker build -t heatmap:latest .
+#   $ docker run -d -v /opt/HeatMap/docker/xml:/opt/xml -p 8000:8000 heatmap:latest
 #
 # Nmap Example:
 #   $ nmap -sT -A -oX /tmp/myscan.xml 192.168.1.0/24
-#   $ mv /tmp/myscan.xml /opt/WebMap/docker/xml
+#   $ mv /tmp/myscan.xml /opt/HeatMap/docker/xml
 #
 # Now you can point your browser to http://localhost:8000
 
@@ -29,7 +29,7 @@ RUN mkdir /opt/xml && mkdir /opt/notes && \
 
 RUN pip3 install Django requests xmltodict && \
     cd /opt/ && django-admin startproject nmapdashboard && cd /opt/nmapdashboard && \
-    git clone https://github.com/SabyasachiRana/WebMap.git nmapreport && \
+    git clone https://github.com/Heatena/HeatMap.git nmapreport && \
     cd nmapreport && git checkout master
 
 RUN cp /opt/nmapdashboard/nmapreport/docker/settings.py /opt/nmapdashboard/nmapdashboard/

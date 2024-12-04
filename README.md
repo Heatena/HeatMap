@@ -27,43 +27,43 @@ A Web Dashbord for Nmap XML Report
 ## Usage
 You should use this with docker, just by sending this command:
 ```bash
-$ mkdir /tmp/webmap
+$ mkdir /tmp/heatmap
 $ docker run -d \
-         --name webmap \
-         -h webmap \
+         --name heatmap \
+         -h heatmap \
          -p 8000:8000 \
-         -v /tmp/webmap:/opt/xml \
-         reborntc/webmap
+         -v /tmp/heatmap:/opt/xml \
+         reborntc/heatmap
 
-$ # now you can run Nmap and save the XML Report on /tmp/webmap
-$ nmap -sT -A -T4 -oX /tmp/webmap/myscan.xml 192.168.1.0/24
+$ # now you can run Nmap and save the XML Report on /tmp/heatmap
+$ nmap -sT -A -T4 -oX /tmp/heatmap/myscan.xml 192.168.1.0/24
 ```
 Now point your browser to http://localhost:8000
 
 ### Generate new token
-In order to access to the WebMap dashboard, you need a token. You can create a new token with:
+In order to access to the HeatMap dashboard, you need a token. You can create a new token with:
 ```bash
-$ docker exec -ti webmap /root/token
+$ docker exec -ti heatmap /root/token
 ```
 
 ### Upgrade from previous release
 ```bash
-$ # stop running webmap container
-$ docker stop webmap
+$ # stop running heatmap container
+$ docker stop heatmap
 
-$ # remove webmap container
-$ docker rm webmap
+$ # remove heatmap container
+$ docker rm heatmap
 
 $ # pull new image from dockerhub
 $ docker pull reborntc/webmap
 
-$ # run WebMap
+$ # run HeatMap
 $ curl -sL http://bit.ly/webmapsetup | bash
 ```
 
 ### Run without Docker
 This project is designed to run on a Docker container. IMHO it isn't a good idea to run this on a custom Django installation, 
-but if you need it you can find all building steps inside the [Dockerfile](https://github.com/SabyasachiRana/WebMap/blob/master/docker/Dockerfile).
+but if you need it you can find all building steps inside the [Dockerfile].
 
 ## Video
 The HTML template changes often. This video could not be up to date with the latest version.
@@ -82,17 +82,17 @@ The HTML template changes often. This video could not be up to date with the lat
 - RESTful API
 
 ## Roadmap for v2.3x
-You love WebMap and you know python? We need your help! This is what we want deploy for the v2.3:
+You love HeatMap and you know python? We need your help! This is what we want deploy for the v2.3:
 - [todo] Improve template: try to define better the html template and charts
 - [todo] Improve API: create a documentation/wiki about it
-- [todo] Wiki: create WebMap User Guide on GitHub
-- [working] Authentication or something that could blocks access to WebMap if != localhost
+- [todo] Wiki: create HeatMap User Guide on GitHub
+- [working] Authentication or something that could blocks access to HeatMap if != localhost
 - [working] Scan diff: show difference between two scheduled nmap scan report
 - [todo] Zaproxy: Perform web scan using the OWASP ZAP API
 
 ## Changes on v2.2
 - fixed bug on missing services
-- Run nmap from WebMap
+- Run nmap from HeatMap
 - Schedule nmap run
 - Add custom NSE scripts section
 
@@ -104,11 +104,11 @@ You love WebMap and you know python? We need your help! This is what we want dep
 - Add RESTful API
 
 ## PDF Report
-![WebMap](https://i.imgur.com/alWZix9.png)
+![HeatMap](https://i.imgur.com/alWZix9.png)
 
 ## XML Filenames
 When creating the PDF version of the Nmap XML Report, the XML filename is used as document title on the first page. 
-WebMap will replace some parts of the filename as following:
+HeatMap will replace some parts of the filename as following:
 
 - `_` will replaced by a space (` `)
 - `.xml` will be removed
@@ -117,20 +117,20 @@ Example: `ACME_Ltd..xml`<br>
 PDF title: `ACME Ltd.`
 
 ## CVE and Exploits
-thanks to the amazing API services by circl.lu, WebMap is able to looking for CVE and Exploits for each CPE collected by Nmap. 
+thanks to the amazing API services by circl.lu, HeatMap is able to looking for CVE and Exploits for each CPE collected by Nmap. 
 Not all CPE are checked over the circl.lu API, but only when a specific version is specified 
 (for example: `cpe:/a:microsoft:iis:7.5` and not `cpe:/o:microsoft:windows`).
 
 ## Network View
-![WebMap](https://i.imgur.com/j77jQz9.png)
+![HeatMap](https://i.imgur.com/j77jQz9.png)
 
 ## RESTful API
-From `v2.1` WebMap has a RESTful API frontend that makes users able to query their scan files with something like:
+From `v2.1` HeatMap has a RESTful API frontend that makes users able to query their scan files with something like:
 
 ```bash
 curl -s 'http://localhost:8000/api/v1/scan?token=<token>'
 
-    "webmap_version": "v2.1/master",
+    "heatmap_version": "v2.1/master",
     "scans": {
         "scanme.nmap.org.xml": {
             "filename": "scanme.nmap.org.xml",
@@ -274,7 +274,7 @@ curl -v 'http://localhost:8000/api/v1/scan/hackthebox.xml/10.10.10.87?token=<tok
 
 ## Security Issues
 This app is not intended to be exposed to the internet, but to be used as localhost web application. Please, **DO NOT expose** this app to the internet, use your localhost or, 
-in case you can't do it, take care to filter who and what can access to WebMap with a firewall rule or something like that. 
+in case you can't do it, take care to filter who and what can access to HeatMap with a firewall rule or something like that. 
 Exposing this app to the whole internet could lead not only to a stored XSS but also to a leakage of sensitive/critical/private 
 informations about your port scan. Please, be smart.
 

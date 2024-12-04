@@ -319,7 +319,7 @@ def apiv1_scan(request):
 		return HttpResponse(json.dumps({'error':'invalid token'}, indent=4), content_type="application/json")
 
 	gitcmd = os.popen('cd /opt/nmapdashboard/nmapreport && git rev-parse --abbrev-ref HEAD')
-	r['webmap_version'] = gitcmd.read().strip()
+	r['heatmap_version'] = gitcmd.read().strip()
 
 	xmlfiles = os.listdir('/opt/xml')
 
