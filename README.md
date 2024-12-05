@@ -33,7 +33,7 @@ $ docker run -d \
          -h heatmap \
          -p 8000:8000 \
          -v /tmp/heatmap:/opt/xml \
-         reborntc/heatmap
+         heatenaceo/heatmap
 
 $ # now you can run Nmap and save the XML Report on /tmp/heatmap
 $ nmap -sT -A -T4 -oX /tmp/heatmap/myscan.xml 192.168.1.0/24
@@ -55,10 +55,8 @@ $ # remove heatmap container
 $ docker rm heatmap
 
 $ # pull new image from dockerhub
-$ docker pull reborntc/webmap
+$ docker pull heatenaceo/webmap
 
-$ # run HeatMap
-$ curl -sL http://bit.ly/webmapsetup | bash
 ```
 
 ### Run without Docker
@@ -81,27 +79,6 @@ The HTML template changes often. This video could not be up to date with the lat
 - Search for CVE and Exploits based on CPE collected by Nmap
 - RESTful API
 
-## Roadmap for v2.3x
-You love HeatMap and you know python? We need your help! This is what we want deploy for the v2.3:
-- [todo] Improve template: try to define better the html template and charts
-- [todo] Improve API: create a documentation/wiki about it
-- [todo] Wiki: create HeatMap User Guide on GitHub
-- [working] Authentication or something that could blocks access to HeatMap if != localhost
-- [working] Scan diff: show difference between two scheduled nmap scan report
-- [todo] Zaproxy: Perform web scan using the OWASP ZAP API
-
-## Changes on v2.2
-- fixed bug on missing services
-- Run nmap from HeatMap
-- Schedule nmap run
-- Add custom NSE scripts section
-
-## Changes on v2.1
-- Better usage of Django template
-- Fixed some Nmap XML parse problems
-- Fixed CVE and Exploit collecting problems
-- Add new Network View
-- Add RESTful API
 
 ## PDF Report
 ![HeatMap](https://i.imgur.com/alWZix9.png)
