@@ -27,10 +27,15 @@ RUN mkdir /opt/xml && mkdir /opt/notes && \
     wget -P /opt/ https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz && \
     cd /opt/ && tar -xvf /opt/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
 
-RUN pip3 install Django requests xmltodict && \
-    cd /opt/ && django-admin startproject nmapdashboard && cd /opt/nmapdashboard && \
+
+RUN python3 -m venv /opt/venv && \
+    /opt/venv/bin/pip install --upgrade pip && \
+    /opt/venv/bin/pip install Django requests xmltodict && \
+    cd /opt/ && /opt/venv/bin/django-admin startproject nmapdashboard && \
+    cd /opt/nmapdashboard && \
     git clone https://github.com/Heatena/HeatMap.git nmapreport && \
     cd nmapreport && git checkout master
+
 
 RUN cp /opt/nmapdashboard/nmapreport/docker/settings.py /opt/nmapdashboard/nmapdashboard/
 RUN cp /opt/nmapdashboard/nmapreport/docker/urls.py /opt/nmapdashboard/nmapdashboard/
