@@ -20,7 +20,7 @@ FROM ubuntu:latest
 
 ENV DEBIAN_FRONTEND noninteractive
 
-# Install required system packages, including python3-venv
+# Install required system packages
 RUN apt-get update && apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages \
     python3 python3-pip python3-venv curl wget git wkhtmltopdf libssl-dev vim nmap tzdata
 
@@ -48,6 +48,11 @@ RUN cp /opt/nmapdashboard/nmapreport/docker/startup.sh /startup.sh
 
 # Run migrations
 RUN cd /opt/nmapdashboard && /opt/venv/bin/python manage.py migrate
+
+# Ensure the virtual environment is activated in startup.sh
+RUN echo "source /opt/venv/bin/activate" >> /startup.sh && \
+    echo "export PYTHONPATH=/opt/nmapdashboard" >> /startup.sh && \
+    echo "cd /opt/nmapdashboard" >> /startup.sh
 
 # Cleanup and permissions
 RUN apt-get autoremove -y
