@@ -7,7 +7,7 @@
 #   $ cd /opt
 #   $ git clone https://github.com/Heatena/HeatMap.git
 #   $ cd HeatMap/docker
-#   $ docker build -t heatmap:latest .
+#   $ docker build -t heatenaceo/heatmap:latest .
 #   $ docker run -d -v /opt/HeatMap/docker/xml:/opt/xml -p 8000:8000 heatmap:latest
 #
 # Nmap Example:
